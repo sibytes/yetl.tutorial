@@ -25,7 +25,7 @@ def demo_joined_landing_to_raw(
         and written to delta table
     """
 
-    df_cust = dataflow.source_df(f"{context.project}_landing.customer")
+    df_cust = dataflow.source_df(f"{context.project}_landing.customer_details")
     df_prefs = dataflow.source_df(f"{context.project}_landing.customer_preferences")
 
     context.log.info("Joining customers with customer_preferences")

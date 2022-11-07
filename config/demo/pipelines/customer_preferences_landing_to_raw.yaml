@@ -6,26 +6,22 @@ dataflow:
       table:
         properties:
           yetl.schema.createIfNotExists: true
-          yetl.schema.corrupt_record: true
-          yetl.metadata.timeslice: timeslice_path_date_format
+          yetl.metadata.timeslice: timeslice_file_date_format
           yetl.metadata.filepath_filename: true
-
-      path_date_format: "%Y-%m-%d"
+      path_date_format: "%Y%m%d"
       file_date_format: "%Y%m%d"
       format: csv
-      path: landing/demo/{{ timeslice_path_date_format }}/customer_preferences_{{ timeslice_file_date_format }}.csv
+      path: "landing/demo/{{timeslice_path_date_format}}/customer_preferences_{{timeslice_file_date_format}}.csv"
       read:
         auto: true
         options:
           mode: PERMISSIVE
           inferSchema: false
           header: true
-
       exceptions:
-          path: "delta_lake/demo/{{ table_name }}_exceptions"
-          database: landing
-          table: "{{ table_name }}_exceptions"
-
+          path: "delta_lake/demo_landing/{{table_name}}_exceptions"
+          database: demo_landing
+          table: "{{table_name}}_exceptions"
       thresholds:
         warning:
           min_rows: 1
