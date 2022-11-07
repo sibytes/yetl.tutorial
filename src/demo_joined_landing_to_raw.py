@@ -39,13 +39,20 @@ def demo_joined_landing_to_raw(
 
 # incremental load
 # timeslice = Timeslice(2021, 1, 1)
-# timeslice = Timeslice(2022, 7, 12)
-# timeslice = Timeslice(2022, 7, "*")
+# timeslice = Timeslice(2021, 1, 2)
+# timeslice = Timeslice(2021, 1, "*")
 # results = demo_joined_landing_to_raw(timeslice=timeslice)
 # print(results)
 
-# reload load
-timeslice = Timeslice(2022, "*", "*")
+# reload 2021
+# timeslice = Timeslice(2021, "*", "*")
+# results = customer_preferences_landing_to_raw(timeslice=timeslice, save=OverwriteSave)
+# results = json.dumps(demo_joined_landing_to_raw, indent=4, default=str)
+# print(results)
+
+
+# reload all
+timeslice = Timeslice("*","*","*")
 results = demo_joined_landing_to_raw(timeslice=timeslice, save=OverwriteSave)
 results = json.dumps(results, indent=4, default=str)
 print(results)

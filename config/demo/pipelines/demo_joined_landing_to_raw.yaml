@@ -1,27 +1,24 @@
-# Loads data from text files to a delta table.
-# This load tests the following features:
-#   - badrecordspath data validation.
-
 dataflow:
 
   demo_landing:
-    customer:
+    customer_details:
       type: Reader
       table:
         properties:
-          yetl.metadata.timeslice: true
           yetl.schema.createIfNotExists: true
-
+          yetl.metadata.timeslice: timeslice_file_date_format
+          yetl.metadata.filepath_filename: true
+          yetl.metadata.context_id: false
       path_date_format: "%Y%m%d"
       file_date_format: "%Y%m%d"
       format: csv
-      path: landing/demo/{{timeslice_path_date_format}}/customer_{{timeslice_file_date_format}}.csv
+      path: landing/demo/{{timeslice_path_date_format}}/customer_details_{{timeslice_file_date_format}}.csv
       read:
         auto: true
         options:
+          mode: PERMISSIVE
           inferSchema: false
           header: true
-          badRecordsPath: "exceptions/demo_landing/customer/{{timeslice_path_date_format}}"
       exceptions:
           path: "delta_lake/demo_landing/{{table_name}}_exceptions"
           database: demo_landing
@@ -44,17 +41,16 @@ dataflow:
       table:
         properties:
           yetl.schema.createIfNotExists: true
-          yetl.metadata.timeslice: false
-
+          yetl.metadata.context_id: false
       path_date_format: "%Y%m%d"
       file_date_format: "%Y%m%d"
       format: csv
       path: landing/demo/{{timeslice_path_date_format}}/customer_preferences_{{timeslice_file_date_format}}.csv
       read:
         options:
+          mode: PERMISSIVE
           inferSchema: false
           header: true
-          badRecordsPath: "exceptions/demo_landing/customer_preferences/{{timeslice_path_date_format}}"
       exceptions:
           path: "delta_lake/demo_landing/{{table_name}}_exceptions"
           database: demo_landing
