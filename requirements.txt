@@ -8,5 +8,5 @@ pyspark==3.3.1
 PyYAML==6.0
 regex==2022.10.31
 typer==0.7.0
-yetl-framework==0.0.25
+yetl-framework==0.0.25.dev1
 zipp==3.10.0
