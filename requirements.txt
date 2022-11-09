@@ -14,5 +14,5 @@ regex==2022.10.31
 tomli==2.0.1
 typer==0.7.0
 typing_extensions==4.4.0
-yetl-framework==0.0.25.dev2
+yetl-framework==0.0.25.dev4
 zipp==3.10.0
