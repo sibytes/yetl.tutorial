@@ -6,6 +6,7 @@ dataflow:
 
       properties:
         yetl.schema.createIfNotExists: true
+        yetl.schema.corruptRecord: false
         yetl.metadata.timeslice: timeslice_file_date_format
         yetl.metadata.filepathFilename: true
 
@@ -20,12 +21,14 @@ dataflow:
           mode: PERMISSIVE
           inferSchema: false
           header: true
+  
           
     customer_preferences:
       type: Reader     
 
       properties:
         yetl.schema.createIfNotExists: true
+        yetl.schema.corruptRecord: false
 
 
       path_date_format: "%Y%m%d"
@@ -43,38 +46,36 @@ dataflow:
   demo_raw:
     customer:
       type: DeltaWriter
-      table:
+      partitioned_by:
+        - _partition_key
 
-        partitioned_by:
-          - _partition_key
+      zorder_by:
+        - email
+        - id
 
-        zorder_by:
-          - email
-          - id
+      ddl: "{{root}}"
 
-        ddl: "{{root}}"
+      properties:
 
-        properties:
+        yetl.metadata.datasetId: true
+        yetl.schema.createIfNotExists: true
+        delta.appendOnly: false
+        delta.checkpoint.writeStatsAsJson: true
+        delta.autoOptimize.autoCompact: true        
+        delta.autoOptimize.optimizeWrite: true 
+        delta.compatibility.symlinkFormatManifest.enabled: false
+        delta.dataSkippingNumIndexedCols: -1
+        delta.logRetentionDuration: interval 30 days
+        delta.deletedFileRetentionDuration: interval 1 week
+        delta.enableChangeDataFeed: true
+        delta.minReaderVersion: 1
+        delta.minWriterVersion: 2
+        delta.randomizeFilePrefixes: false
+        delta.randomPrefixLength: 2
 
-          yetl.metadata.DatasetId: true
-          yetl.schema.createIfNotExists: true
-          delta.appendOnly: false
-          delta.checkpoint.writeStatsAsJson: true
-          delta.autoOptimize.autoCompact: true        
-          delta.autoOptimize.optimizeWrite: true 
-          delta.compatibility.symlinkFormatManifest.enabled: false
-          delta.dataSkippingNumIndexedCols: -1
-          delta.logRetentionDuration: interval 30 days
-          delta.deletedFileRetentionDuration: interval 1 week
-          delta.enableChangeDataFeed: true
-          delta.minReaderVersion: 1
-          delta.minWriterVersion: 2
-          delta.randomizeFilePrefixes: false
-          delta.randomPrefixLength: 2
-
-        check_constraints:
-          amount_lower_bound: "amount > -1000"
-          amount_upper_bound: "amount < 10000"
+      check_constraints:
+        amount_lower_bound: "amount > -1000"
+        amount_upper_bound: "amount < 10000"
       
       format: delta
       path: delta_lake/demo_raw/customer
