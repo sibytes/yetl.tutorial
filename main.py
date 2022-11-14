@@ -1,18 +1,19 @@
 from src.demo_landing_to_raw import landing_to_raw
 from yetl.flow import Timeslice, OverwriteSave
-import json
+from yetl.workflow import multithreaded as yetl_wf
+import yaml
 
 # timeslice = Timeslice(2021, 1, 1)
 # timeslice = Timeslice(2021, 1, 2)
 timeslice = Timeslice("*", "*", "*")
+project = "demo"
+maxparallel = 2
 
-table = "customer_details"
-results = landing_to_raw(table=table, timeslice=timeslice, save=OverwriteSave)
-results = json.dumps(results, indent=4, default=str)
-print(results)
+path = f"./config/project/{project}/{project}_tables.yml"
 
-table = "customer_preferences"
-results = landing_to_raw(table=table, timeslice=timeslice, save=OverwriteSave)
-results = json.dumps(results, indent=4, default=str)
-print(results)
+with open(path, "r", encoding="utf-8") as f:
+    metdata = yaml.safe_load(f)
 
+tables: list = [t["table"] for t in metdata.get("tables")]
+
+yetl_wf.load(project, tables, landing_to_raw, timeslice, OverwriteSave, maxparallel)
