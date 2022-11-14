@@ -4,8 +4,8 @@ dataflow:
     {{demo_tables_table_name}}:
       type: Reader
       properties:
-        yetl.schema.createIfNotExists: true
         yetl.schema.corruptRecord: false
+        yetl.schema.createIfNotExists: true
         yetl.metadata.timeslice: timeslice_file_date_format
         yetl.metadata.filepathFilename: true
       path_date_format: "%Y%m%d"
