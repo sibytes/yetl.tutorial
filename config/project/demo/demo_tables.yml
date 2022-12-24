@@ -1,0 +1,4 @@
+database: demo
+tables:
+- table: customer_details
+- table: customer_preferences
