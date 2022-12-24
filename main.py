@@ -3,9 +3,9 @@ from yetl.flow import Timeslice, OverwriteSave
 from yetl.workflow import multithreaded as yetl_wf
 import yaml
 
-# timeslice = Timeslice(2021, 1, 1)
-# timeslice = Timeslice(2021, 1, 2)
-timeslice = Timeslice("*", "*", "*")
+# timeslice = Timeslice(year=2021, month=1, day=1)
+# timeslice = Timeslice(year=2021, month=1, day=2)
+timeslice = Timeslice(year="*", month="*", day="*")
 project = "demo"
 maxparallel = 2
 

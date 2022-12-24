@@ -30,6 +30,7 @@ dataflow:
       properties:
         yetl.metadata.datasetId: true
         yetl.schema.createIfNotExists: true
+      deltalake_properties:
         delta.appendOnly: false
         delta.checkpoint.writeStatsAsJson: true
         delta.autoOptimize.autoCompact: true       

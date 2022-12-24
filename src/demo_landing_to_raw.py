@@ -31,5 +31,3 @@ def landing_to_raw(
 
     destination_table = f"{_PROJECT}_raw.{table}"
     dataflow.destination_df(destination_table, df, save=save)
-
-    context.log.info(f"Loaded table {destination_table}")
