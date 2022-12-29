@@ -18,6 +18,14 @@ dataflow:
           mode: PERMISSIVE
           inferSchema: false
           header: true
+      {% if table.enable_exceptions -%}
+      exceptions:
+          path: "delta_lake/{{ database_name }}/{{ table_name }}_exceptions"
+          database: "{{ database_name }}"
+          table: "{{ table_name }}_exceptions"
+      {% endif -%}
+
+      
 
   demo_raw:
     {{demo_tables_table_name}}:
