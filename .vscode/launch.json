@@ -15,21 +15,24 @@
             "args": [
                 
                 // "init", "demo", "--overwrite"
-                
+
                 // "build",
                 // "demo",
-                // "." ,
                 // "demo_tables.yml", 
-                // "landing_to_raw.yaml",
+                // "landing_to_raw.yaml.j2",
                 // "./config"
 
-                // "create-table-manifest", 
-                // "File", 
-                // "/Users/shaunryan/AzureDevOps/yetl.tutorial/data/landing/demo", 
-                // "--filename", 
-                // "*", 
-                // "--extract-regex", 
-                // "(?<=_)[^_]+"
+                // "register_tables" ,
+                // "demo" ,
+                // "./config/project"  ,
+                // "File" ,
+                // "./data/landing/demo" ,
+                // "--filename" ,
+                // "*" ,
+                // "--extract-regex",
+                // "^[a-zA-Z_]+[a-zA-Z]+",
+                // "--enable-exceptions",
+                // "--disable-thresholds"
             ],
             "env": {  }
         },
